@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>About — Shelf.</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Manrope:wght@700;800&family=DM+Mono:wght@400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="index.html">
+<style>
+[data-theme="dark"]{--bg:#0e0e10;--surface:#16161a;--surface2:#1e1e24;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--text:#eeedf0;--text2:#9997a0;--text3:#5c5a65;--accent:#c0392b}
+[data-theme="light"]{--bg:#f5f0e8;--surface:#faf7f2;--surface2:#ede8dc;--border:rgba(26,24,20,.09);--border2:rgba(26,24,20,.16);--text:#1a1814;--text2:#7a7268;--text3:#b8b0a4;--accent:#c0392b}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;transition:background .25s}
+nav{height:54px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px}
+.nav-logo{font-family:'Inter',sans-serif;font-size:18px;font-weight:600;letter-spacing:-.02em;text-decoration:none;color:var(--text)}
+.nav-logo span{color:var(--accent)}
+.nav-back{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);text-decoration:none;transition:color .13s}
+.nav-back:hover{color:var(--accent)}
+.theme-btn{width:28px;height:28px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px}
+.ls{max-width:720px;margin:0 auto;padding:64px 32px}
+.ls h1{font-family:'Manrope',sans-serif;font-size:36px;font-weight:800;letter-spacing:-.03em;margin-bottom:6px}
+.ls .updated{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--text3);letter-spacing:.06em;margin-bottom:40px}
+.ls h2{font-family:'Manrope',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.01em;margin:32px 0 10px}
+.ls p,.ls li{font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:10px}
+.ls ul{padding-left:20px}
+footer{border-top:1px solid var(--border);padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.fl{font-family:'Inter',sans-serif;font-size:15px;font-weight:600;letter-spacing:-.02em}.fl span{color:var(--accent)}
+.flk{display:flex;gap:18px;flex-wrap:wrap}.flk a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);text-decoration:none;transition:color .13s}.flk a:hover{color:var(--text)}
+.fc{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+</style></head><body>
+<nav><a class="nav-logo" href="index.html">Shelf<span>.</span></a><a class="nav-back" href="index.html">← Back</a><div class="theme-btn" onclick="toggleTheme()" id="theme-btn">☀</div></nav>
+<div class="ls">
+<h1>About Shelf.</h1><div class="updated">A personal media shelf for everything that matters to you.</div>
+<h2>What is Shelf?</h2>
+<p>Shelf is a personal media shelf — a place to save books, videos, music, articles, memes, fashion, and anything else you find interesting on the internet. It's a browser extension, a web app, and a sharing tool in one.</p>
+<p>The idea is simple: the internet is enormous, and the things that matter to you get lost in tabs, messages, and feeds. Shelf gives them a home.</p>
+<h2>Why we built it</h2>
+<p>Bookmarks are dead — nobody looks at them. Read-later apps are graveyard. What we wanted was something closer to a real physical shelf: curated, visible, personal, and occasionally shown to friends.</p>
+<p>Shelf is for the things you want to keep, revisit, and share — not everything, just the things worth remembering.</p>
+<h2>How it works</h2>
+<p>Install the browser extension. Right-click any page to stack it. Drag open tabs onto your shelf. Build curated "shelves" — themed collections like "Sci-fi Films" or "Design Inspiration" — and share them as beautiful web pages. Friends can view your shelves and add items to their own.</p>
+<h2>Privacy first</h2>
+<p>All your data lives on your device. We don't have a server. Nothing is tracked. Your shelf is yours.</p>
+<h2>Contact</h2>
+<p>Questions, feedback or ideas: <a href="contact.html" style="color:var(--accent)">get in touch</a>.</p>
+</div>
+<footer><div class="fl">Shelf<span>.</span></div><div class="flk"><a href="index.html">Home</a><a href="shelf.html">App</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div><div class="fc">© 2025 Shelf.</div></footer>
+<script>function toggleTheme(){const d=document.documentElement;const t=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',t);document.getElementById('theme-btn').textContent=t==='dark'?'☀':'◐';localStorage.setItem('shelf_theme',t)}const s=localStorage.getItem('shelf_theme');if(s){document.documentElement.setAttribute('data-theme',s);document.getElementById('theme-btn').textContent=s==='dark'?'☀':'◐'}</script>
+</body></html>

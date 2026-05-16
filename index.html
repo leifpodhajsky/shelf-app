@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shelf. — Stack what matters</title>
+<meta name="description" content="Shelf is a personal media shelf. Save books, videos, music, articles and anything you love. Share curated shelves with friends.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+[data-theme="dark"]{--bg:#0e0e10;--surface:#16161a;--surface2:#1e1e24;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--text:#eeedf0;--text2:#9997a0;--text3:#5c5a65;--accent:#c0392b}
+[data-theme="light"]{--bg:#f5f0e8;--surface:#faf7f2;--surface2:#ede8dc;--border:rgba(26,24,20,.09);--border2:rgba(26,24,20,.16);--text:#1a1814;--text2:#7a7268;--text3:#b8b0a4;--accent:#c0392b}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
+::selection{background:var(--accent);color:#fff}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;height:54px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px;transition:background .25s}
+.nav-logo{font-family:'Inter',sans-serif;font-size:18px;font-weight:600;letter-spacing:-.02em}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);transition:color .15s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;padding:7px 16px;border-radius:5px;background:var(--accent);color:#fff;border:none;cursor:pointer;transition:opacity .15s}
+.nav-cta:hover{opacity:.88}
+.theme-btn{width:28px;height:28px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;transition:all .15s}
+.theme-btn:hover{border-color:var(--accent)}
+
+/* HERO */
+.hero{max-width:860px;margin:0 auto;padding:96px 32px 80px;text-align:center}
+.hero-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+h1{font-family:'Manrope',sans-serif;font-size:clamp(42px,7vw,76px);font-weight:800;letter-spacing:-.04em;line-height:1.05;margin-bottom:22px}
+h1 em{color:var(--accent);font-style:normal}
+.hero-sub{font-size:clamp(16px,2.2vw,19px);color:var(--text2);max-width:520px;margin:0 auto 36px;line-height:1.65}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-hero{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;padding:12px 24px;border-radius:6px;cursor:pointer;transition:all .15s;font-weight:500}
+.btn-hero-p{background:var(--accent);color:#fff;border:1px solid var(--accent)}
+.btn-hero-p:hover{opacity:.9}
+.btn-hero-s{background:transparent;color:var(--text2);border:1px solid var(--border2)}
+.btn-hero-s:hover{border-color:var(--border2);color:var(--text);background:var(--surface)}
+
+/* APP PREVIEW */
+.preview{max-width:900px;margin:0 auto 80px;padding:0 32px}
+.preview-inner{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.3)}
+.preview-bar{background:var(--surface2);border-bottom:1px solid var(--border);height:40px;display:flex;align-items:center;gap:7px;padding:0 16px}
+.preview-dot{width:10px;height:10px;border-radius:50%}
+.preview-url{flex:1;height:22px;background:var(--surface);border-radius:4px;margin:0 10px;display:flex;align-items:center;padding:0 10px}
+.preview-url span{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+.preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:16px}
+.preview-card{background:var(--surface2);border-radius:8px;overflow:hidden;border:1px solid var(--border)}
+.preview-thumb{height:72px;display:flex;align-items:center;justify-content:center;font-size:28px}
+.preview-body{padding:8px 10px}
+.preview-type{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}
+.preview-title{font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;line-height:1.3}
+
+/* FEATURES */
+.features{max-width:900px;margin:0 auto 80px;padding:0 32px}
+.section-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.feat{background:var(--surface);padding:24px;transition:background .15s}
+.feat:hover{background:var(--surface2)}
+.feat-icon{font-size:22px;margin-bottom:10px}
+.feat-title{font-family:'Manrope',sans-serif;font-size:15px;font-weight:700;margin-bottom:5px;letter-spacing:-.01em}
+.feat-desc{font-size:13px;color:var(--text2);line-height:1.6}
+
+/* PHILOSOPHY */
+.philosophy{max-width:640px;margin:0 auto 80px;padding:0 32px;text-align:center}
+.philosophy blockquote{font-family:'Manrope',sans-serif;font-size:clamp(22px,4vw,32px);font-weight:700;letter-spacing:-.02em;line-height:1.35;margin-bottom:18px}
+.philosophy blockquote em{color:var(--accent);font-style:normal}
+.philosophy p{font-size:15px;color:var(--text2);line-height:1.7}
+
+/* HOW IT WORKS */
+.how{max-width:900px;margin:0 auto 80px;padding:0 32px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-top:24px}
+.step{padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:10px}
+.step-num{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--accent);margin-bottom:8px}
+.step-title{font-family:'Manrope',sans-serif;font-size:15px;font-weight:700;margin-bottom:5px;letter-spacing:-.01em}
+.step-desc{font-size:13px;color:var(--text2);line-height:1.6}
+
+/* CTA */
+.cta-section{max-width:600px;margin:0 auto 80px;padding:0 32px;text-align:center}
+.cta-card{background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:48px 40px}
+.cta-card h2{font-family:'Manrope',sans-serif;font-size:32px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+.cta-card p{font-size:15px;color:var(--text2);margin-bottom:24px;line-height:1.6}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-logo{font-family:'Inter',sans-serif;font-size:16px;font-weight:600;letter-spacing:-.02em}
+.footer-logo span{color:var(--accent)}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap}
+.footer-links a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);transition:color .13s}
+.footer-links a:hover{color:var(--text)}
+.footer-copy{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+
+/* LEGAL SECTIONS */
+.legal-section{max-width:720px;margin:0 auto;padding:64px 32px}
+.legal-section h1{font-family:'Manrope',sans-serif;font-size:36px;font-weight:800;letter-spacing:-.03em;margin-bottom:8px}
+.legal-section .updated{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--text3);letter-spacing:.06em;margin-bottom:40px}
+.legal-section h2{font-family:'Manrope',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.01em;margin:32px 0 10px}
+.legal-section p,.legal-section li{font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:10px}
+.legal-section ul{padding-left:20px}
+.legal-section a{color:var(--accent)}
+
+@media(max-width:600px){nav{padding:0 16px}.hero,.features,.philosophy,.how,.cta-section{padding:0 16px}.hero{padding-top:56px}.preview{padding:0 16px}footer{padding:24px 16px}.preview-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Shelf<span>.</span></div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how">How it works</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <div class="theme-btn" onclick="toggleTheme()" id="theme-btn">☀</div>
+    <a href="shelf.html?from=landing" class="nav-cta">Open Shelf</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label">Your personal media shelf</div>
+  <h1>Stack what <em>matters.</em><br>Share what you love.</h1>
+  <p class="hero-sub">Books, videos, music, articles, fashion, memes — everything interesting you find, in one place. Curated shelves to share with friends.</p>
+  <div class="hero-actions">
+      <a href="shelf.html?from=landing" class="btn-hero btn-hero-p">Open my Shelf →</a>
+    <a href="#how" class="btn-hero btn-hero-s">See how it works</a>
+  </div>
+</section>
+
+<!-- APP PREVIEW -->
+<div class="preview">
+  <div class="preview-inner">
+    <div class="preview-bar">
+      <div class="preview-dot" style="background:#e05c4e"></div>
+      <div class="preview-dot" style="background:#d4a843"></div>
+      <div class="preview-dot" style="background:#3daa72"></div>
+      <div class="preview-url"><span>shelf.app</span></div>
+    </div>
+    <div class="preview-grid">
+      <div class="preview-card"><div class="preview-thumb" style="background:#c0392b18">▶</div><div class="preview-body"><div class="preview-type" style="color:#c0392b">Video</div><div class="preview-title">The Overview Effect</div></div></div>
+      <div class="preview-card"><div class="preview-thumb" style="background:#1a3a5c18">♪</div><div class="preview-body"><div class="preview-type" style="color:#1a3a5c">Music</div><div class="preview-title">Since I Left You</div></div></div>
+      <div class="preview-card"><div class="preview-thumb" style="background:#2c5f2e18">📚</div><div class="preview-body"><div class="preview-type" style="color:#2c5f2e">Book</div><div class="preview-title">The Design of Everyday Things</div></div></div>
+      <div class="preview-card"><div class="preview-thumb" style="background:#b8860b18">📰</div><div class="preview-body"><div class="preview-type" style="color:#b8860b">Article</div><div class="preview-title">The Idea Factory — Bell Labs</div></div></div>
+      <div class="preview-card"><div class="preview-thumb" style="background:#c2185b18">👗</div><div class="preview-body"><div class="preview-type" style="color:#c2185b">Fashion</div><div class="preview-title">SSENSE New Arrivals</div></div></div>
+      <div class="preview-card"><div class="preview-thumb" style="background:#8b451318">🎬</div><div class="preview-body"><div class="preview-type" style="color:#8b4513">Documentary</div><div class="preview-title">Free Solo</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-label">Everything in one place</div>
+  <div class="features-grid">
+    <div class="feat"><div class="feat-icon">📌</div><div class="feat-title">Stack anything</div><div class="feat-desc">Books, videos, music, articles, memes, fashion — any URL, file or idea.</div></div>
+    <div class="feat"><div class="feat-icon">✦</div><div class="feat-title">My Shelves</div><div class="feat-desc">Create named curated shelves — "Sci-fi Movies", "Best Design Books" — and share them as beautiful pages.</div></div>
+    <div class="feat"><div class="feat-icon">👤</div><div class="feat-title">Friends</div><div class="feat-desc">See friends' shelves, save items from their collections directly into yours.</div></div>
+    <div class="feat"><div class="feat-icon">🌐</div><div class="feat-title">Browser extension</div><div class="feat-desc">Right-click any page to stack it. Your open tabs in a side panel, drag and drop onto your shelf.</div></div>
+    <div class="feat"><div class="feat-icon">▶</div><div class="feat-title">Feed that plays</div><div class="feat-desc">YouTube, Spotify, Vimeo and SoundCloud play inline. No leaving the app.</div></div>
+    <div class="feat"><div class="feat-icon">📊</div><div class="feat-title">Weekly Recap</div><div class="feat-desc">A Spotify Wrapped-style card every week. Download, share to Instagram or Twitter.</div></div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy">
+  <blockquote>"The internet gives you everything. Shelf helps you keep what <em>actually matters.</em>"</blockquote>
+  <p>Not a bookmark manager. Not a read-later app. A living shelf of things that shaped your thinking, taste and curiosity — and a way to share that with people you care about.</p>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-label">How it works</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">01</div><div class="step-title">Install the extension</div><div class="step-desc">Add to Chrome, Firefox, Brave or Arc. Takes 30 seconds.</div></div>
+    <div class="step"><div class="step-num">02</div><div class="step-title">Save as you browse</div><div class="step-desc">Right-click any page. Drag open tabs onto your shelf. Paste any URL.</div></div>
+    <div class="step"><div class="step-num">03</div><div class="step-title">Organise into shelves</div><div class="step-desc">Create named shelves for any theme or mood. Drag cards in.</div></div>
+    <div class="step"><div class="step-num">04</div><div class="step-title">Share with friends</div><div class="step-desc">Share a shelf as a beautiful web page. Friends can add to their own Shelf in one click.</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-card">
+    <h2>Start your shelf.</h2>
+    <p>Free. No account required to get started. Your data lives on your device.</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <a href="shelf.html?from=landing" class="btn-hero btn-hero-p">Open Shelf →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Shelf<span>.</span></div>
+  <div class="footer-links">
+    <a href="shelf.html">App</a>
+    <a href="#features">Features</a>
+    <a href="contact.html">Contact</a>
+    <a href="about.html">About</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+  </div>
+  <div class="footer-copy">© 2025 Shelf. All rights reserved.</div>
+</footer>
+
+<script>
+function toggleTheme(){const d=document.documentElement;const t=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',t);document.getElementById('theme-btn').textContent=t==='dark'?'☀':'◐';localStorage.setItem('shelf_theme',t)}
+const saved=localStorage.getItem('shelf_theme');if(saved){document.documentElement.setAttribute('data-theme',saved);document.getElementById('theme-btn').textContent=saved==='dark'?'☀':'◐'}
+</script>
+</body>
+</html>

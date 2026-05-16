@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contact — Shelf.</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Manrope:wght@700;800&family=DM+Mono:wght@400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+[data-theme="dark"]{--bg:#0e0e10;--surface:#16161a;--surface2:#1e1e24;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--text:#eeedf0;--text2:#9997a0;--text3:#5c5a65;--accent:#c0392b}
+[data-theme="light"]{--bg:#f5f0e8;--surface:#faf7f2;--surface2:#ede8dc;--border:rgba(26,24,20,.09);--border2:rgba(26,24,20,.16);--text:#1a1814;--text2:#7a7268;--text3:#b8b0a4;--accent:#c0392b}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;transition:background .25s}
+nav{height:54px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px}
+.nav-logo{font-family:'Inter',sans-serif;font-size:18px;font-weight:600;letter-spacing:-.02em;text-decoration:none;color:var(--text)}.nav-logo span{color:var(--accent)}
+.nav-back{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);text-decoration:none;transition:color .13s}.nav-back:hover{color:var(--accent)}
+.theme-btn{width:28px;height:28px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px}
+.ls{max-width:640px;margin:0 auto;padding:64px 32px}
+.ls h1{font-family:'Manrope',sans-serif;font-size:36px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+.ls .sub{font-size:15px;color:var(--text2);margin-bottom:40px;line-height:1.65}
+.form{display:flex;flex-direction:column;gap:14px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3)}
+.field input,.field textarea,.field select{font-family:'DM Sans',sans-serif;font-size:14px;border:1px solid var(--border2);border-radius:6px;padding:10px 12px;background:var(--surface2);color:var(--text);outline:none;transition:border-color .15s;width:100%}
+.field input:focus,.field textarea:focus{border-color:var(--accent)}
+.field textarea{min-height:120px;resize:vertical}
+.submit-btn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;padding:12px 24px;border-radius:6px;background:var(--accent);color:#fff;border:none;cursor:pointer;transition:opacity .15s;align-self:flex-start;font-weight:600}
+.submit-btn:hover{opacity:.88}
+.contact-alt{margin-top:40px;padding-top:32px;border-top:1px solid var(--border)}
+.contact-alt h2{font-family:'Manrope',sans-serif;font-size:17px;font-weight:700;margin-bottom:10px}
+.contact-alt p{font-size:14px;color:var(--text2);line-height:1.65}
+footer{border-top:1px solid var(--border);padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:60px}
+.fl{font-family:'Inter',sans-serif;font-size:15px;font-weight:600;letter-spacing:-.02em}.fl span{color:var(--accent)}
+.flk{display:flex;gap:18px;flex-wrap:wrap}.flk a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);text-decoration:none}.flk a:hover{color:var(--text)}
+.fc{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+</style></head><body>
+<nav><a class="nav-logo" href="index.html">Shelf<span>.</span></a><a class="nav-back" href="index.html">← Back</a><div class="theme-btn" onclick="toggleTheme()" id="theme-btn">☀</div></nav>
+<div class="ls">
+<h1>Get in touch.</h1>
+<p class="sub">Questions, feedback, bug reports, ideas — we'd love to hear from you.</p>
+<form class="form" onsubmit="handleSubmit(event)">
+  <div class="field"><label>Your name</label><input type="text" placeholder="e.g. Zara" required></div>
+  <div class="field"><label>Email</label><input type="email" placeholder="you@example.com" required></div>
+  <div class="field"><label>What's this about?</label>
+    <select>
+      <option>General feedback</option>
+      <option>Bug report</option>
+      <option>Feature request</option>
+      <option>Partnership / press</option>
+      <option>Other</option>
+    </select>
+  </div>
+  <div class="field"><label>Message</label><textarea placeholder="Tell us what's on your mind…" required></textarea></div>
+  <button type="submit" class="submit-btn">Send message →</button>
+  <div id="form-msg" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);min-height:16px"></div>
+</form>
+<div class="contact-alt">
+  <h2>Other ways to reach us</h2>
+  <p>For urgent issues or press enquiries, email us directly at <strong>hello@shelf.app</strong></p>
+  <p style="margin-top:8px">We aim to reply within 2 business days.</p>
+</div>
+</div>
+<footer><div class="fl">Shelf<span>.</span></div><div class="flk"><a href="index.html">Home</a><a href="shelf.html">App</a><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div><div class="fc">© 2025 Shelf.</div></footer>
+<script>
+function toggleTheme(){const d=document.documentElement;const t=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',t);document.getElementById('theme-btn').textContent=t==='dark'?'☀':'◐';localStorage.setItem('shelf_theme',t)}
+const s=localStorage.getItem('shelf_theme');if(s){document.documentElement.setAttribute('data-theme',s);document.getElementById('theme-btn').textContent=s==='dark'?'☀':'◐'}
+function handleSubmit(e){e.preventDefault();document.getElementById('form-msg').textContent='✓ Message sent — we\'ll be in touch soon.';e.target.reset()}
+</script>
+</body></html>

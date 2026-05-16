@@ -1,0 +1,42 @@
+{
+  "name": "Shelf.",
+  "short_name": "Shelf",
+  "description": "Stack books, videos, music, articles — your personal media shelf.",
+  "start_url": "/shelf.html",
+  "display": "standalone",
+  "background_color": "#0e0e10",
+  "theme_color": "#0e0e10",
+  "orientation": "any",
+  "icons": [
+    { "src": "icons/icon16.png",  "sizes": "16x16",   "type": "image/png" },
+    { "src": "icons/icon32.png",  "sizes": "32x32",   "type": "image/png" },
+    { "src": "icons/icon48.png",  "sizes": "48x48",   "type": "image/png" },
+    { "src": "icons/icon128.png", "sizes": "128x128", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "categories": ["productivity", "lifestyle", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Add to Shelf",
+      "short_name": "Add",
+      "description": "Stack a new item",
+      "url": "/shelf.html?action=add",
+      "icons": [{ "src": "icons/icon48.png", "sizes": "48x48" }]
+    },
+    {
+      "name": "My Shelves",
+      "short_name": "Shelves",
+      "description": "View your curated shelves",
+      "url": "/shelf.html",
+      "icons": [{ "src": "icons/icon48.png", "sizes": "48x48" }]
+    }
+  ],
+  "share_target": {
+    "action": "/shelf.html",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "note",
+      "url": "url"
+    }
+  }
+}

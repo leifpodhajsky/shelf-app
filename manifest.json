@@ -1,0 +1,90 @@
+{
+  "manifest_version": 3,
+  "name": "Shelf",
+  "short_name": "Shelf",
+  "version": "1.0.1",
+  "description": "Stack books, videos, music, articles — your personal media shelf. Save anything with right-click, share curated shelves with friends.",
+  "permissions": [
+    "tabs",
+    "storage",
+    "contextMenus",
+    "activeTab",
+    "scripting",
+    "alarms",
+    "notifications"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "https://api.allorigins.win/*",
+    "https://corsproxy.io/*",
+    "https://thingproxy.freeboard.io/*",
+    "https://api.anthropic.com/*",
+    "https://www.google.com/s2/favicons*",
+    "https://logo.clearbit.com/*",
+    "https://fonts.googleapis.com/*",
+    "https://fonts.gstatic.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "Shelf — Stack anything"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "options_ui": {
+    "page": "shelf.html",
+    "open_in_tab": true
+  },
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": { "default": "Alt+S", "mac": "Alt+S" },
+      "description": "Open Shelf popup"
+    },
+    "open-shelf": {
+      "suggested_key": { "default": "Alt+Shift+S", "mac": "Alt+Shift+S" },
+      "description": "Open full Shelf app"
+    },
+    "stack-current-tab": {
+      "suggested_key": { "default": "Alt+Shift+A", "mac": "Alt+Shift+A" },
+      "description": "Stack current tab"
+    },
+    "search-shelf": {
+      "suggested_key": { "default": "Alt+Shift+F", "mac": "Alt+Shift+F" },
+      "description": "Search your shelf"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["shelf.html", "newtab.html", "icons/*", "fonts/*"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self' https://api.allorigins.win https://corsproxy.io https://thingproxy.freeboard.io https://api.anthropic.com https://www.google.com https://logo.clearbit.com https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;"
+  },
+  "minimum_chrome_version": "93"
+}

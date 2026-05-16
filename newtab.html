@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shelf — New Tab</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Manrope:wght@700;800&family=DM+Mono:wght@400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+[data-theme="dark"]{--bg:#0e0e10;--sf:#16161a;--sf2:#1e1e24;--bd:rgba(255,255,255,.07);--bd2:rgba(255,255,255,.13);--tx:#eeedf0;--tx2:#9997a0;--tx3:#5c5a65;--ac:#c0392b}
+[data-theme="light"]{--bg:#f5f0e8;--sf:#faf7f2;--sf2:#ede8dc;--bd:rgba(26,24,20,.09);--bd2:rgba(26,24,20,.16);--tx:#1a1814;--tx2:#7a7268;--tx3:#b8b0a4;--ac:#c0392b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;-webkit-font-smoothing:antialiased}
+.logo{font-family:'Inter',sans-serif;font-size:16px;font-weight:600;letter-spacing:-.02em;position:fixed;top:18px;left:22px;cursor:pointer;color:var(--tx3)}
+.logo span{color:var(--ac)}
+.time{font-family:'Manrope',sans-serif;font-size:clamp(56px,10vw,96px);font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:8px;color:var(--tx)}
+.date{font-family:'DM Mono',monospace;font-size:13px;color:var(--tx3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:52px}
+.card-wrap{width:min(500px,90vw)}
+.shelf-item{background:var(--sf);border:1px solid var(--bd2);border-radius:12px;padding:18px 20px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:14px;margin-bottom:12px;text-decoration:none}
+.shelf-item:hover{border-color:var(--ac);transform:translateY(-1px)}
+.item-ico{font-size:24px;flex-shrink:0;width:36px;text-align:center}
+.item-body{flex:1;min-width:0}
+.item-label{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx3);margin-bottom:3px}
+.item-title{font-family:'Manrope',sans-serif;font-size:15px;font-weight:700;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--tx)}
+.item-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--tx3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item-arrow{font-size:16px;color:var(--tx3);flex-shrink:0;transition:color .15s}
+.shelf-item:hover .item-arrow{color:var(--ac)}
+.actions{display:flex;gap:8px;margin-top:4px}
+.act-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:7px 14px;border-radius:5px;border:1px solid var(--bd2);background:transparent;color:var(--tx3);cursor:pointer;transition:all .15s;text-decoration:none}
+.act-btn:hover{border-color:var(--ac);color:var(--ac)}
+.act-btn-primary{background:var(--ac);color:#fff;border-color:var(--ac)}
+.act-btn-primary:hover{background:#e05c4e;color:#fff}
+.theme-btn{position:fixed;top:14px;right:14px;width:28px;height:28px;border-radius:50%;background:var(--sf2);border:1px solid var(--bd2);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center}
+</style>
+</head>
+<body>
+<div class="logo" onclick="chrome.tabs.create({url:chrome.runtime.getURL('shelf.html')})">Shelf<span>.</span></div>
+<button class="theme-btn" onclick="toggleT()" id="tbtn">☀</button>
+<div class="time" id="clock"></div>
+<div class="date" id="dateline"></div>
+<div class="card-wrap">
+  <div id="featured-item"></div>
+  <div class="actions">
+    <a class="act-btn act-btn-primary" onclick="chrome.tabs.create({url:chrome.runtime.getURL('shelf.html')})">Open Shelf →</a>
+    <a class="act-btn" onclick="chrome.tabs.create({url:chrome.runtime.getURL('shelf.html?action=add')})">+ Stack something</a>
+    <a class="act-btn" id="refresh-btn" onclick="loadRandom()">↻ New pick</a>
+  </div>
+</div>
+<script>
+// Clock
+function tick(){
+  const n=new Date();
+  document.getElementById('clock').textContent=n.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('dateline').textContent=n.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+}
+tick();setInterval(tick,1000);
+
+// Theme
+function toggleT(){const d=document.documentElement;const t=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',t);document.getElementById('tbtn').textContent=t==='dark'?'☀':'◐';localStorage.setItem('shelf_theme',t)}
+const st=localStorage.getItem('shelf_theme');if(st){document.documentElement.setAttribute('data-theme',st);document.getElementById('tbtn').textContent=st==='dark'?'☀':'◐'}
+
+// Load a random shelf item
+function loadRandom(){
+  chrome.storage.local.get('shelf3_items',d=>{
+    const items=JSON.parse(d.shelf3_items||'[]');
+    if(!items.length){document.getElementById('featured-item').innerHTML=`<div style="text-align:center;padding:20px;font-family:'DM Mono',monospace;font-size:11px;color:var(--tx3)">Your shelf is empty — add your first item!</div>`;return}
+    // Pick a random unfavourite-weighted item (surface things you haven't seen)
+    const unseenWeight=items.map(i=>i.fav?0.3:1);
+    const total=unseenWeight.reduce((a,b)=>a+b,0);
+    let r=Math.random()*total;let pick=items[0];
+    for(let i=0;i<items.length;i++){r-=unseenWeight[i];if(r<=0){pick=items[i];break}}
+    const types={video:{icon:'▶',color:'#c0392b'},music:{icon:'♪',color:'#1a3a5c'},book:{icon:'📚',color:'#2c5f2e'},article:{icon:'📰',color:'#b8860b'},doc:{icon:'🎬',color:'#8b4513'},fashion:{icon:'👗',color:'#c2185b'},meme:{icon:'😂',color:'#7b2d8b'},other:{icon:'◈',color:'#555'}};
+    const t=types[pick.type]||types.other;
+    const domain=pick.url?new URL(pick.url).hostname.replace('www.',''):'';
+    document.getElementById('featured-item').innerHTML=`<a class="shelf-item" onclick="pick.url&&chrome.tabs.create({url:'${(pick.url||'').replace(/'/g,"\\'")}'})">
+      <div class="item-ico" style="background:${t.color}15;border-radius:8px;height:36px;display:flex;align-items:center;justify-content:center">${t.icon}</div>
+      <div class="item-body">
+        <div class="item-label">${pick.type} · from your shelf</div>
+        <div class="item-title">${(pick.title||'').replace(/</g,'&lt;')}</div>
+        <div class="item-meta">${pick.creator?pick.creator+' · ':''}${domain}</div>
+      </div>
+      <div class="item-arrow">↗</div>
+    </a>`;
+  });
+}
+loadRandom();
+</script>
+</body>
+</html>

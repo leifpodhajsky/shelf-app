@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shelf & Stack</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Manrope:wght@600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 340px; min-height: 200px;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 13px;
+    transition: background .2s, color .2s;
+  }
+  :root {
+    --bg: #0c0c0d; --surface: #141416; --surface2: #1c1c1f;
+    --border: rgba(255,255,255,.08); --text: #f0eff0; --text2: #8c8b90; --text3: #5a5960;
+    --accent: #6c63ff; --green: #34d399; --red: #f87171;
+    --font-serif: 'Manrope', sans-serif;
+    --font-mono: 'DM Mono', monospace; --font-sans: 'DM Sans', sans-serif;
+  }
+  body.light {
+    --bg: #f5f0e8; --surface: #faf7f2; --surface2: #ede8dc;
+    --border: rgba(26,24,20,.1); --text: #1a1814; --text2: #7a7268; --text3: #c8bfa8;
+    --accent: #c0392b; --green: #2c5f2e; --red: #c0392b;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 14px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: -.02em; color: var(--text); }
+  .logo .dot { color: var(--accent); }
+  .hdr-actions { display: flex; gap: 6px; }
+  .icon-btn { background: none; border: 1px solid var(--border); border-radius: 5px; padding: 4px 8px; cursor: pointer; font-size: 12px; color: var(--text2); transition: all .15s; }
+  .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* CURRENT PAGE */
+  .current-page { padding: 12px 14px; border-bottom: 1px solid var(--border); }
+  .section-label { font-family: var(--font-mono); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--text3); margin-bottom: 8px; display: block; }
+  .page-row { display: flex; align-items: center; gap: 9px; }
+  .page-favicon { width: 18px; height: 18px; border-radius: 3px; flex-shrink: 0; }
+  .page-info { flex: 1; min-width: 0; }
+  .page-title { font-size: 12.5px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text); }
+  .page-url { font-family: var(--font-mono); font-size: 9.5px; color: var(--text3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .save-btn { background: var(--accent); color: #fff; border: none; border-radius: 5px; padding: 6px 10px; cursor: pointer; font-family: var(--font-mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; transition: all .15s; }
+  .save-btn:hover { opacity: .9; transform: scale(1.03); }
+  .saved-indicator { font-family: var(--font-mono); font-size: 10px; color: var(--green); }
+
+  /* QUICK SAVE FORM */
+  .quick-form { padding: 10px 14px; border-bottom: 1px solid var(--border); display: none; }
+  .quick-form.open { display: block; }
+  .qf-field { margin-bottom: 8px; }
+  .qf-field label { font-family: var(--font-mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); display: block; margin-bottom: 3px; }
+  .qf-field input, .qf-field textarea {
+    width: 100%; background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 5px; padding: 6px 9px; color: var(--text); font-family: var(--font-sans);
+    font-size: 12.5px; outline: none; transition: border-color .15s;
+  }
+  .qf-field input:focus, .qf-field textarea:focus { border-color: var(--accent); }
+  .qf-field textarea { min-height: 52px; resize: none; }
+  .type-row { display: flex; gap: 4px; flex-wrap: wrap; }
+  .type-pill { padding: 3px 8px; border: 1px solid var(--border); border-radius: 12px; cursor: pointer; font-family: var(--font-mono); font-size: 9px; letter-spacing: .04em; background: transparent; color: var(--text2); transition: all .15s; }
+  .type-pill.sel { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .qf-actions { display: flex; gap: 6px; justify-content: flex-end; margin-top: 8px; }
+  .btn-sm { padding: 5px 10px; border-radius: 5px; border: 1px solid var(--border); background: transparent; cursor: pointer; font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--text2); transition: all .15s; }
+  .btn-sm:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-sm.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn-sm.primary:hover { opacity: .9; }
+
+  /* OPEN TABS */
+  .tabs-section { padding: 8px 14px; }
+  .tabs-list { max-height: 260px; overflow-y: auto; }
+  .tab-item {
+    display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 6px;
+    cursor: pointer; transition: background .12s; border: 1px solid transparent;
+  }
+  .tab-item:hover { background: var(--surface2); }
+  .tab-item.dragging { opacity: .5; }
+  .tab-fav { width: 16px; height: 16px; border-radius: 3px; flex-shrink: 0; }
+  .tab-fav-placeholder { width: 16px; height: 16px; border-radius: 3px; background: var(--surface2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 9px; color: var(--text3); }
+  .tab-info { flex: 1; min-width: 0; }
+  .tab-name { font-size: 12px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text); }
+  .tab-domain { font-family: var(--font-mono); font-size: 9px; color: var(--text3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tab-save-btn { background: none; border: 1px solid var(--border); border-radius: 4px; padding: 3px 7px; cursor: pointer; font-family: var(--font-mono); font-size: 9px; color: var(--text2); transition: all .15s; flex-shrink: 0; white-space: nowrap; }
+  .tab-save-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .tab-save-btn.saved { border-color: var(--green); color: var(--green); }
+  .tab-item.active-tab .tab-name { color: var(--accent); }
+  .drag-hint { font-family: var(--font-mono); font-size: 9.5px; color: var(--text3); text-align: center; padding: 6px; margin-bottom: 6px; border: 1px dashed var(--border); border-radius: 6px; }
+
+  /* FOOTER */
+  footer { padding: 9px 14px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-link { font-family: var(--font-mono); font-size: 9.5px; color: var(--text3); cursor: pointer; transition: color .15s; background: none; border: none; letter-spacing: .04em; }
+  .footer-link:hover { color: var(--accent); }
+
+  /* LOADING */
+  .loading { padding: 20px; text-align: center; color: var(--text3); font-family: var(--font-mono); font-size: 10px; }
+
+  /* TOAST */
+  .toast-mini { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); background: var(--surface2); color: var(--text); font-family: var(--font-mono); font-size: 10px; padding: 6px 12px; border-radius: 6px; white-space: nowrap; animation: toastIn .2s ease; border-left: 2px solid var(--accent); z-index: 99; }
+  @keyframes toastIn { from{opacity:0;transform:translateX(-50%) translateY(4px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
+
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Shelf<span class="dot">.</span></div>
+  <div class="hdr-actions">
+    <button class="icon-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle theme">◐</button>
+    <button class="icon-btn" onclick="openFullShelf()" title="Open full shelf">⊞</button>
+  </div>
+</header>
+
+<!-- CURRENT PAGE -->
+<div class="current-page">
+  <span class="section-label">Current Page</span>
+  <div class="page-row">
+    <img class="page-favicon" id="page-fav" src="" onerror="this.style.display='none'">
+    <div class="page-info">
+      <div class="page-title" id="page-title">Loading…</div>
+      <div class="page-url" id="page-url"></div>
+    </div>
+    <button class="save-btn" id="quick-save-btn" onclick="toggleQuickForm()">+ Save</button>
+  </div>
+</div>
+
+<!-- QUICK SAVE FORM -->
+<div class="quick-form" id="quick-form">
+  <div class="qf-field">
+    <label>Title</label>
+    <input type="text" id="qf-title" placeholder="What's this?">
+  </div>
+  <div class="qf-field">
+    <label>Type</label>
+    <div class="type-row" id="qf-type-row"></div>
+  </div>
+  <div class="qf-field">
+    <label>Note (optional)</label>
+    <textarea id="qf-note" placeholder="Why save this?"></textarea>
+  </div>
+  <div class="qf-actions">
+    <button class="btn-sm" onclick="toggleQuickForm()">Cancel</button>
+    <button class="btn-sm primary" onclick="saveCurrentPage()">Save to Shelf</button>
+  </div>
+</div>
+
+<!-- OPEN TABS -->
+<div class="tabs-section">
+  <span class="section-label">Open Tabs — click to save</span>
+  <div class="drag-hint">💡 Click + Save to add any tab to your shelf</div>
+  <div class="tabs-list" id="tabs-list">
+    <div class="loading">Loading tabs…</div>
+  </div>
+</div>
+
+<footer>
+  <button class="footer-link" onclick="openFullShelf()">Open full shelf ↗</button>
+  <button class="footer-link" onclick="refreshTabs()">↻ Refresh</button>
+</footer>
+
+<script>
+const BUILTIN = [
+  {id:'book',name:'Book',icon:'📚'},{id:'video',name:'Video',icon:'▶'},
+  {id:'music',name:'Music',icon:'♪'},{id:'meme',name:'Meme',icon:'😂'},
+  {id:'doc',name:'Doc',icon:'🎬'},{id:'article',name:'Article',icon:'📰'},
+  {id:'fashion',name:'Fashion',icon:'👗'},{id:'other',name:'Other',icon:'◈'},
+];
+
+let currentTab = null;
+let selType = '';
+let allTabs = [];
+let isDark = true;
+
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', async () => {
+  // Theme
+  const stored = await chrome.storage.local.get('shelf_theme');
+  isDark = stored.shelf_theme !== 'light';
+  applyTheme();
+
+  // Build type pills
+  buildTypePills();
+
+  // Get current tab
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (tab) {
+    currentTab = tab;
+    document.getElementById('page-title').textContent = tab.title || 'Untitled';
+    document.getElementById('page-url').textContent = getDomain(tab.url || '');
+    document.getElementById('page-fav').src = tab.favIconUrl || `https://www.google.com/s2/favicons?sz=32&domain=${getDomain(tab.url||'')}`;
+    document.getElementById('qf-title').value = tab.title || '';
+
+    // Check if already saved
+    const data = await chrome.storage.local.get('shelf3_items');
+    const items = JSON.parse(data.shelf3_items || '[]');
+    if (items.find(i => i.url === tab.url)) {
+      const btn = document.getElementById('quick-save-btn');
+      btn.textContent = '✓ Saved';
+      btn.style.background = '#34d399';
+    }
+  }
+
+  // Load tabs
+  loadTabs();
+});
+
+function buildTypePills() {
+  document.getElementById('qf-type-row').innerHTML = BUILTIN.map(t =>
+    `<button class="type-pill ${selType===t.id?'sel':''}" onclick="pickType('${t.id}',this)">${t.icon} ${t.name}</button>`
+  ).join('');
+}
+
+function pickType(id, btn) {
+  selType = id;
+  document.querySelectorAll('.type-pill').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+
+function toggleQuickForm() {
+  const form = document.getElementById('quick-form');
+  form.classList.toggle('open');
+}
+
+async function saveCurrentPage() {
+  if (!currentTab) return;
+  const title = document.getElementById('qf-title').value.trim() || currentTab.title || 'Untitled';
+  const note = document.getElementById('qf-note').value.trim();
+
+  // Try to get OG image from content script
+  let thumb = currentTab.favIconUrl || '';
+  try {
+    const meta = await chrome.tabs.sendMessage(currentTab.id, { type: 'EXTRACT_META' });
+    if (meta && meta.image) thumb = meta.image;
+  } catch(e) {}
+
+  const item = {
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2,5),
+    title, note,
+    type: selType || autoDetectType(currentTab.url || ''),
+    url: currentTab.url || '',
+    thumb,
+    creator: '', year: '', tags: [],
+    date: new Date().toISOString(),
+    fav: false,
+    friendIds: [],
+    ogDomain: getDomain(currentTab.url || ''),
+  };
+
+  const data = await chrome.storage.local.get('shelf3_items');
+  const items = JSON.parse(data.shelf3_items || '[]');
+  items.unshift(item);
+  await chrome.storage.local.set({ shelf3_items: JSON.stringify(items) });
+
+  // Update UI
+  const btn = document.getElementById('quick-save-btn');
+  btn.textContent = '✓ Saved';
+  btn.style.background = '#34d399';
+  document.getElementById('quick-form').classList.remove('open');
+  showToast('✓ Saved to shelf');
+
+  // Refresh tab list to update saved state
+  loadTabs();
+}
+
+async function saveTab(tab) {
+  let thumb = tab.favIconUrl || '';
+  try {
+    const meta = await chrome.tabs.sendMessage(tab.id, { type: 'EXTRACT_META' });
+    if (meta && meta.image) thumb = meta.image;
+  } catch(e) {}
+
+  const item = {
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2,5),
+    title: tab.title || 'Untitled',
+    note: '',
+    type: autoDetectType(tab.url || ''),
+    url: tab.url || '',
+    thumb,
+    creator: '', year: '', tags: [],
+    date: new Date().toISOString(),
+    fav: false,
+    friendIds: [],
+    ogDomain: getDomain(tab.url || ''),
+  };
+
+  const data = await chrome.storage.local.get('shelf3_items');
+  const items = JSON.parse(data.shelf3_items || '[]');
+  if (!items.find(i => i.url === tab.url)) {
+    items.unshift(item);
+    await chrome.storage.local.set({ shelf3_items: JSON.stringify(items) });
+  }
+  showToast(`✓ "${tab.title?.slice(0,30)}" saved`);
+  loadTabs();
+}
+
+async function loadTabs() {
+  const data = await chrome.storage.local.get('shelf3_items');
+  const savedItems = JSON.parse(data.shelf3_items || '[]');
+  const savedUrls = new Set(savedItems.map(i => i.url));
+
+  chrome.runtime.sendMessage({ type: 'GET_TABS' }, (response) => {
+    allTabs = (response?.tabs || []).slice(0, 30);
+    renderTabs(allTabs, savedUrls);
+  });
+}
+
+function renderTabs(tabs, savedUrls) {
+  const list = document.getElementById('tabs-list');
+  if (!tabs.length) {
+    list.innerHTML = '<div class="loading">No tabs found</div>';
+    return;
+  }
+  list.innerHTML = tabs.map(tab => {
+    const domain = getDomain(tab.url);
+    const isSaved = savedUrls.has(tab.url);
+    const faviconURL = tab.favIconUrl || `https://www.google.com/s2/favicons?sz=32&domain=${domain}`;
+    return `<div class="tab-item ${tab.active ? 'active-tab' : ''}" draggable="true" data-url="${esc(tab.url)}" data-title="${esc(tab.title)}" data-tab-id="${tab.id}">
+      <img class="tab-fav" src="${esc(faviconURL)}" onerror="this.style.display='none'" alt="">
+      <div class="tab-info">
+        <div class="tab-name">${esc(tab.title)}</div>
+        <div class="tab-domain">${esc(domain)}</div>
+      </div>
+      <button class="tab-save-btn ${isSaved?'saved':''}" onclick="event.stopPropagation();saveTabById(${tab.id})">${isSaved?'✓':'+ Save'}</button>
+    </div>`;
+  }).join('');
+
+  // Drag events
+  list.querySelectorAll('.tab-item').forEach(item => {
+    item.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('text/plain', JSON.stringify({
+        url: item.dataset.url, title: item.dataset.title
+      }));
+      item.classList.add('dragging');
+    });
+    item.addEventListener('dragend', e => item.classList.remove('dragging'));
+  });
+}
+
+async function saveTabById(tabId) {
+  const tab = allTabs.find(t => t.id === tabId);
+  if (tab) await saveTab(tab);
+}
+
+function refreshTabs() { loadTabs(); showToast('↻ Refreshed'); }
+
+function toggleTheme() {
+  isDark = !isDark;
+  applyTheme();
+  chrome.storage.local.set({ shelf_theme: isDark ? 'dark' : 'light' });
+}
+
+function applyTheme() {
+  document.body.classList.toggle('light', !isDark);
+  document.getElementById('theme-btn').textContent = isDark ? '☀' : '◐';
+}
+
+function openFullShelf() {
+  chrome.tabs.create({ url: chrome.runtime.getURL('shelf.html') });
+  window.close();
+}
+
+function autoDetectType(url) {
+  const u = url.toLowerCase();
+  if (u.includes('youtube') || u.includes('vimeo')) return 'video';
+  if (u.includes('spotify') || u.includes('soundcloud') || u.includes('music.apple')) return 'music';
+  if (u.includes('goodreads') || u.includes('books.google')) return 'book';
+  if (u.includes('ssense') || u.includes('farfetch') || u.includes('vogue') || u.includes('hypebeast')) return 'fashion';
+  if (u.includes('medium') || u.includes('substack') || u.includes('nytimes') || u.includes('bbc.')) return 'article';
+  if (u.includes('reddit') || u.includes('imgur') || u.includes('knowyourmeme')) return 'meme';
+  return 'other';
+}
+
+function getDomain(url) {
+  try { return new URL(url).hostname.replace('www.', ''); } catch(e) { return ''; }
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function showToast(msg) {
+  const ex = document.querySelector('.toast-mini');
+  if (ex) ex.remove();
+  const t = document.createElement('div');
+  t.className = 'toast-mini';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2000);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Terms of Service — Shelf.</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Manrope:wght@700;800&family=DM+Mono:wght@400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>[data-theme="dark"]{--bg:#0e0e10;--surface:#16161a;--surface2:#1e1e24;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--text:#eeedf0;--text2:#9997a0;--text3:#5c5a65;--accent:#c0392b}[data-theme="light"]{--bg:#f5f0e8;--surface:#faf7f2;--surface2:#ede8dc;--border:rgba(26,24,20,.09);--border2:rgba(26,24,20,.16);--text:#1a1814;--text2:#7a7268;--text3:#b8b0a4;--accent:#c0392b}*{box-sizing:border-box;margin:0;padding:0}body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;transition:background .25s}nav{height:54px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px}.nav-logo{font-family:'Inter',sans-serif;font-size:18px;font-weight:600;letter-spacing:-.02em;text-decoration:none;color:var(--text)}.nav-logo span{color:var(--accent)}.nav-back{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);text-decoration:none;transition:color .13s}.nav-back:hover{color:var(--accent)}.theme-btn{width:28px;height:28px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px}.ls{max-width:720px;margin:0 auto;padding:64px 32px}.ls h1{font-family:'Manrope',sans-serif;font-size:36px;font-weight:800;letter-spacing:-.03em;margin-bottom:6px}.ls .updated{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--text3);letter-spacing:.06em;margin-bottom:40px}.ls h2{font-family:'Manrope',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.01em;margin:32px 0 10px}.ls p,.ls li{font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:10px}.ls ul{padding-left:20px}.ls a{color:var(--accent)}footer{border-top:1px solid var(--border);padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:60px}.fl{font-family:'Inter',sans-serif;font-size:15px;font-weight:600;letter-spacing:-.02em}.fl span{color:var(--accent)}.flk{display:flex;gap:18px;flex-wrap:wrap}.flk a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);text-decoration:none}.flk a:hover{color:var(--text)}.fc{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}</style></head><body>
+<nav><a class="nav-logo" href="index.html">Shelf<span>.</span></a><a class="nav-back" href="index.html">← Back</a><div class="theme-btn" onclick="toggleTheme()" id="theme-btn">☀</div></nav>
+<div class="ls">
+<h1>Terms of Service</h1><div class="updated">Last updated: January 2025</div>
+<h2>Acceptance</h2>
+<p>By using Shelf (the browser extension and web application), you agree to these terms. If you don't agree, please don't use Shelf.</p>
+<h2>What Shelf is</h2>
+<p>Shelf is a personal media bookmarking tool. It runs locally in your browser. We provide it free of charge, as-is, without warranty.</p>
+<h2>Your content</h2>
+<p>Everything you save in Shelf belongs to you. We don't access it, store it on our servers, or claim any rights to it. Your shelf data lives on your device.</p>
+<p>When you share a shelf page (export as HTML), you are responsible for ensuring you have the right to share the content you include.</p>
+<h2>Acceptable use</h2>
+<p>You agree not to use Shelf to:</p>
+<ul>
+  <li>Save or share content that infringes third-party intellectual property rights</li>
+  <li>Save or share illegal content</li>
+  <li>Attempt to reverse-engineer or exploit the software in ways that harm others</li>
+</ul>
+<h2>Disclaimer of warranties</h2>
+<p>Shelf is provided "as is" without warranty of any kind. We make no guarantees about uptime, data integrity, or fitness for a particular purpose. Since your data lives on your device, we are not responsible for data loss due to browser storage clearing, device failure, or any other reason.</p>
+<h2>Limitation of liability</h2>
+<p>To the maximum extent permitted by law, Shelf and its creators are not liable for any direct, indirect, incidental, or consequential damages arising from your use of the software.</p>
+<h2>Changes</h2>
+<p>We may update these terms. Continued use of Shelf after changes means you accept the new terms.</p>
+<h2>Contact</h2>
+<p>Questions: <a href="contact.html">contact us</a> or email hello@shelf.app.</p>
+</div>
+<footer><div class="fl">Shelf<span>.</span></div><div class="flk"><a href="index.html">Home</a><a href="shelf.html">App</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a></div><div class="fc">© 2025 Shelf.</div></footer>
+<script>function toggleTheme(){const d=document.documentElement;const t=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',t);document.getElementById('theme-btn').textContent=t==='dark'?'☀':'◐';localStorage.setItem('shelf_theme',t)}const s=localStorage.getItem('shelf_theme');if(s){document.documentElement.setAttribute('data-theme',s);document.getElementById('theme-btn').textContent=s==='dark'?'☀':'◐'}</script>
+</body></html>
