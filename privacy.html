@@ -1,40 +1,210 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Privacy Policy — Shelf.</title>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Privacy Policy — Shelf.</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Manrope:wght@700;800&family=DM+Mono:wght@400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-<style>[data-theme="dark"]{--bg:#0e0e10;--surface:#16161a;--surface2:#1e1e24;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--text:#eeedf0;--text2:#9997a0;--text3:#5c5a65;--accent:#c0392b}[data-theme="light"]{--bg:#f5f0e8;--surface:#faf7f2;--surface2:#ede8dc;--border:rgba(26,24,20,.09);--border2:rgba(26,24,20,.16);--text:#1a1814;--text2:#7a7268;--text3:#b8b0a4;--accent:#c0392b}*{box-sizing:border-box;margin:0;padding:0}body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;transition:background .25s}nav{height:54px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px}.nav-logo{font-family:'Inter',sans-serif;font-size:18px;font-weight:600;letter-spacing:-.02em;text-decoration:none;color:var(--text)}.nav-logo span{color:var(--accent)}.nav-back{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);text-decoration:none;transition:color .13s}.nav-back:hover{color:var(--accent)}.theme-btn{width:28px;height:28px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px}.ls{max-width:720px;margin:0 auto;padding:64px 32px}.ls h1{font-family:'Manrope',sans-serif;font-size:36px;font-weight:800;letter-spacing:-.03em;margin-bottom:6px}.ls .updated{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--text3);letter-spacing:.06em;margin-bottom:40px}.ls h2{font-family:'Manrope',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.01em;margin:32px 0 10px}.ls p,.ls li{font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:10px}.ls ul{padding-left:20px}.ls a{color:var(--accent)}footer{border-top:1px solid var(--border);padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:60px}.fl{font-family:'Inter',sans-serif;font-size:15px;font-weight:600;letter-spacing:-.02em}.fl span{color:var(--accent)}.flk{display:flex;gap:18px;flex-wrap:wrap}.flk a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);text-decoration:none}.flk a:hover{color:var(--text)}.fc{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}</style></head><body>
-<nav><a class="nav-logo" href="index.html">Shelf<span>.</span></a><a class="nav-back" href="index.html">← Back</a><div class="theme-btn" onclick="toggleTheme()" id="theme-btn">☀</div></nav>
+<style>
+[data-theme="dark"]{--bg:#0e0e10;--surface:#16161a;--surface2:#1e1e24;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);--text:#eeedf0;--text2:#9997a0;--text3:#5c5a65;--accent:#c0392b}
+[data-theme="light"]{--bg:#f5f0e8;--surface:#faf7f2;--surface2:#ede8dc;--border:rgba(26,24,20,.09);--border2:rgba(26,24,20,.16);--text:#1a1814;--text2:#7a7268;--text3:#b8b0a4;--accent:#c0392b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+nav{height:54px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 32px}
+.nav-logo{font-family:'Inter',sans-serif;font-size:18px;font-weight:600;letter-spacing:-.02em;text-decoration:none;color:var(--text)}
+.nav-logo span{color:var(--accent)}
+.nav-back{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);text-decoration:none}
+.nav-back:hover{color:var(--accent)}
+.theme-btn{width:28px;height:28px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px}
+.ls{max-width:720px;margin:0 auto;padding:64px 32px}
+h1{font-family:'Manrope',sans-serif;font-size:36px;font-weight:800;letter-spacing:-.03em;margin-bottom:6px}
+.updated{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--text3);letter-spacing:.06em;margin-bottom:8px}
+.effective{font-size:13px;color:var(--text3);margin-bottom:40px}
+h2{font-family:'Manrope',sans-serif;font-size:20px;font-weight:700;letter-spacing:-.01em;margin:40px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+h3{font-family:'Manrope',sans-serif;font-size:16px;font-weight:700;margin:20px 0 8px}
+p,li{font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:10px}
+ul,ol{padding-left:22px;margin-bottom:10px}
+li{margin-bottom:4px}
+strong{color:var(--text);font-weight:600}
+.data-table{width:100%;border-collapse:collapse;margin:12px 0 20px;font-size:14px}
+.data-table th{text-align:left;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);padding:8px 12px;border-bottom:1px solid var(--border2)}
+.data-table td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top}
+.data-table td:first-child{color:var(--text);font-weight:500;white-space:nowrap}
+.pill{display:inline-block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:10px;margin:1px}
+.pill-local{background:rgba(5,150,105,.15);color:#059669}
+.pill-no{background:rgba(192,57,43,.12);color:#c0392b}
+.pill-ext{background:rgba(26,58,92,.15);color:#378add}
+a{color:var(--accent)}
+footer{border-top:1px solid var(--border);padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:60px}
+.fl{font-family:'Inter',sans-serif;font-size:15px;font-weight:600;letter-spacing:-.02em}
+.fl span{color:var(--accent)}
+.flk{display:flex;gap:18px;flex-wrap:wrap}
+.flk a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);text-decoration:none}
+.flk a:hover{color:var(--text)}
+.fc{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">Shelf<span>.</span></a>
+  <a class="nav-back" href="index.html">← Back</a>
+  <button class="theme-btn" id="theme-btn">☀</button>
+</nav>
+
 <div class="ls">
-<h1>Privacy Policy</h1><div class="updated">Last updated: January 2025</div>
-<h2>The short version</h2>
-<p>Shelf stores all your data locally on your device. We do not collect, store, or transmit any personal data to external servers. There is no tracking, no analytics, and no advertising.</p>
-<h2>Data storage</h2>
-<p>All shelf items, friends, shelves, and profile information are stored in your browser's local storage or the browser extension's local storage. This data never leaves your device unless you explicitly export it or share a shelf page with someone.</p>
-<h2>What we don't collect</h2>
-<ul>
-  <li>We don't collect your name, email, or any personal information</li>
-  <li>We don't track which URLs you save</li>
-  <li>We don't use cookies for tracking purposes</li>
-  <li>We don't sell data to third parties — ever</li>
-  <li>We don't use advertising networks</li>
-</ul>
-<h2>Third-party services</h2>
-<p>Shelf uses Google Fonts for typography. This means a request is made to Google's servers when you load the app. See <a href="https://policies.google.com/privacy" target="_blank">Google's privacy policy</a> for details.</p>
-<p>When you use the "Fetch" feature to pull metadata from a URL, a request may be made to a proxy service (allorigins.win) to retrieve page content. No personal data is sent — only the URL you're fetching.</p>
-<h2>Shared shelf pages</h2>
-<p>When you export and share a shelf page (HTML file), the recipient can see the items you chose to include. You have full control over what is shared. Shelf does not host these pages.</p>
-<h2>Browser extension permissions</h2>
-<p>The extension requests the following permissions:</p>
-<ul>
-  <li><strong>tabs</strong> — to read open tab titles and URLs for the Tabs panel feature</li>
-  <li><strong>storage</strong> — to save your shelf data locally</li>
-  <li><strong>contextMenus</strong> — to add "Stack this page" to the right-click menu</li>
-  <li><strong>activeTab / scripting</strong> — to extract page metadata (title, OG image) when you save a page</li>
-</ul>
-<p>None of this data leaves your device.</p>
-<h2>Contact</h2>
-<p>Questions about privacy: <a href="contact.html">contact us</a> or email hello@shelf.app.</p>
+  <h1>Privacy Policy</h1>
+  <div class="updated">Last updated: June 2025</div>
+  <p class="effective">This policy applies to the Shelf browser extension and web application ("Shelf", "we", "our"). By using Shelf, you agree to this policy.</p>
+
+  <h2>1. Overview</h2>
+  <p>Shelf is a personal media bookmarking tool. <strong>All data you create in Shelf is stored locally on your device.</strong> We do not operate servers that store your personal data, and we do not sell, rent, or share your data with third parties for advertising or commercial purposes.</p>
+
+  <h2>2. Data we collect and how it is used</h2>
+  <p>The table below describes every category of data that Shelf accesses, where it is stored, and how it is used.</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Data type</th>
+        <th>What it includes</th>
+        <th>Where stored</th>
+        <th>Purpose</th>
+        <th>Shared?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Shelf items</td>
+        <td>URLs, titles, notes, tags, thumbnails, type, date saved</td>
+        <td><span class="pill pill-local">Local device only</span></td>
+        <td>Core functionality — your personal library</td>
+        <td><span class="pill pill-no">Never</span></td>
+      </tr>
+      <tr>
+        <td>Profile information</td>
+        <td>Display name, @handle, avatar emoji (optional)</td>
+        <td><span class="pill pill-local">Local device only</span><br><span class="pill pill-ext">chrome.storage.sync</span></td>
+        <td>Personalisation; synced across your own devices via Chrome</td>
+        <td><span class="pill pill-no">Never</span></td>
+      </tr>
+      <tr>
+        <td>Friends list</td>
+        <td>Friend names, handles, colours (user-defined nicknames only)</td>
+        <td><span class="pill pill-local">Local device only</span></td>
+        <td>Organising shared shelves and collab stacks</td>
+        <td><span class="pill pill-no">Never</span></td>
+      </tr>
+      <tr>
+        <td>Open tab titles and URLs</td>
+        <td>Titles and URLs of your open browser tabs</td>
+        <td><span class="pill pill-local">Memory only — never persisted</span></td>
+        <td>Displayed in the Tabs panel so you can save tabs to your shelf. Read only when you open the panel.</td>
+        <td><span class="pill pill-no">Never</span></td>
+      </tr>
+      <tr>
+        <td>Current page metadata</td>
+        <td>Title, URL, OG image of the active tab</td>
+        <td><span class="pill pill-local">Memory only — never persisted</span></td>
+        <td>Pre-fills the save form when you right-click or use the popup. Only read on explicit user action.</td>
+        <td><span class="pill pill-no">Never</span></td>
+      </tr>
+      <tr>
+        <td>AI auto-tagging input</td>
+        <td>URL and page title of items you save</td>
+        <td><span class="pill pill-ext">Sent to Anthropic API</span></td>
+        <td>Suggests content type and tags using Claude. See section 4.</td>
+        <td><span class="pill pill-ext">Anthropic only</span></td>
+      </tr>
+      <tr>
+        <td>Platform import data</td>
+        <td>Your Goodreads username, Letterboxd username, or Spotify playlist URL</td>
+        <td><span class="pill pill-ext">Sent to Anthropic API</span></td>
+        <td>Used to fetch and parse your public profile/playlist. See section 4.</td>
+        <td><span class="pill pill-ext">Anthropic only</span></td>
+      </tr>
+      <tr>
+        <td>Theme preference</td>
+        <td>Light or dark mode setting</td>
+        <td><span class="pill pill-local">Local device only</span></td>
+        <td>Remembers your display preference</td>
+        <td><span class="pill pill-no">Never</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. Data storage and retention</h2>
+  <h3>Local storage</h3>
+  <p>The majority of your data — shelf items, friends, shelves, collab stacks, custom types — is stored using <strong>chrome.storage.local</strong> (in the browser extension) or <strong>localStorage</strong> (in the web app). This data exists only on your device and is never transmitted to any server operated by Shelf.</p>
+  <h3>Chrome sync storage</h3>
+  <p>Your profile name and handle may be stored in <strong>chrome.storage.sync</strong>, which allows them to persist across devices where you are signed in to Chrome. This data is transmitted through Google's infrastructure subject to <a href="https://policies.google.com/privacy" target="_blank">Google's privacy policy</a>. You can disable this by not creating a profile.</p>
+  <h3>Retention</h3>
+  <p>Your data is retained until you delete it. You can clear all data at any time using the <strong>Clear All</strong> option in the app sidebar. Uninstalling the extension removes all locally stored data.</p>
+
+  <h2>4. Third-party services</h2>
+  <h3>Anthropic (Claude API)</h3>
+  <p>When you use the AI auto-tagging feature or import content from Goodreads, Letterboxd, or Spotify, Shelf sends the relevant URL or page title to the <a href="https://www.anthropic.com/privacy" target="_blank">Anthropic API</a>. This data is used solely to generate suggestions and is subject to Anthropic's privacy policy. No personal profile data, shelf contents, or browsing history is sent to Anthropic.</p>
+  <h3>Google Fonts</h3>
+  <p>Shelf loads typography from Google Fonts (<a href="https://policies.google.com/privacy" target="_blank">Google's privacy policy</a>). This results in a network request to Google's servers when the app loads.</p>
+  <h3>Phosphor Icons</h3>
+  <p>Icon assets are loaded from unpkg.com, a public CDN. No personal data is sent in this request.</p>
+  <h3>Favicon service</h3>
+  <p>When displaying saved items, Shelf may request favicons from Google's favicon service (<code>google.com/s2/favicons</code>) using only the domain name of saved URLs. No personal data is transmitted.</p>
+  <h3>Clearbit</h3>
+  <p>Company logos may be fetched from Clearbit's public logo API using domain names only. No personal data is transmitted.</p>
+
+  <h2>5. Data sharing</h2>
+  <p>Shelf does not sell, rent, trade, or share your personal data with any third party for commercial or advertising purposes. The only external data transmissions are those described in section 4 above, all of which are initiated by you and limited to the minimum data necessary for the feature to function.</p>
+  <p><strong>Shared shelf pages:</strong> When you choose to share a shelf as a link or exported HTML page, the recipient can see the items you included. You have full control over what is shared. Shelf does not host these pages.</p>
+
+  <h2>6. Browser extension permissions</h2>
+  <p>The following permissions are requested by the Shelf browser extension and the reason each is needed:</p>
+  <ul>
+    <li><strong>tabs</strong> — reads open tab titles and URLs to display them in the Tabs panel. Only accessed when you open the panel.</li>
+    <li><strong>storage</strong> — saves your shelf items and preferences locally on your device using chrome.storage.local and chrome.storage.sync.</li>
+    <li><strong>contextMenus</strong> — adds "Stack this page" to your browser's right-click menu.</li>
+    <li><strong>activeTab</strong> — reads the current page's title and URL when you explicitly trigger a save action. Not used in the background.</li>
+    <li><strong>scripting</strong> — injects a save overlay into the current page when you right-click and select "Stack this page". Only runs on user action.</li>
+  </ul>
+
+  <h2>7. Children's privacy</h2>
+  <p>Shelf is not directed at children under the age of 13. We do not knowingly collect personal information from children. If you believe a child has provided personal information through Shelf, please contact us and we will take steps to remove it.</p>
+
+  <h2>8. Your rights</h2>
+  <p>Since all your data is stored locally on your device, you have full control over it at all times:</p>
+  <ul>
+    <li><strong>Access</strong> — all your data is visible within the app at all times</li>
+    <li><strong>Export</strong> — use the Export feature to download a copy of all your data as JSON</li>
+    <li><strong>Delete</strong> — use Clear All to permanently delete all locally stored data, or uninstall the extension</li>
+    <li><strong>Portability</strong> — exported JSON can be imported into another installation of Shelf</li>
+  </ul>
+  <p>For data held by third-party services (Anthropic, Google), please refer to their respective privacy policies linked in section 4.</p>
+
+  <h2>9. Security</h2>
+  <p>Because your data is stored locally and not transmitted to Shelf servers, the security of your data depends primarily on the security of your device and browser. We do not implement additional server-side security measures because we do not hold your data on servers.</p>
+
+  <h2>10. Changes to this policy</h2>
+  <p>We may update this policy from time to time. The "Last updated" date at the top of this page will reflect any changes. Continued use of Shelf after changes constitutes acceptance of the updated policy. For significant changes we will make reasonable efforts to notify users.</p>
+
+  <h2>11. Contact</h2>
+  <p>If you have questions or concerns about this privacy policy or how Shelf handles data, please contact us:</p>
+  <ul>
+    <li>Email: <a href="mailto:hello@shelf.app">hello@shelf.app</a></li>
+    <li>Contact form: <a href="contact.html">shelf.app/contact</a></li>
+  </ul>
 </div>
-<footer><div class="fl">Shelf<span>.</span></div><div class="flk"><a href="index.html">Home</a><a href="shelf.html">App</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="terms.html">Terms</a></div><div class="fc">© 2025 Shelf.</div></footer>
-<script>function toggleTheme(){const d=document.documentElement;const t=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',t);document.getElementById('theme-btn').textContent=t==='dark'?'☀':'◐';localStorage.setItem('shelf_theme',t)}const s=localStorage.getItem('shelf_theme');if(s){document.documentElement.setAttribute('data-theme',s);document.getElementById('theme-btn').textContent=s==='dark'?'☀':'◐'}</script>
-</body></html>
+
+<footer>
+  <div class="fl">Shelf<span>.</span></div>
+  <div class="flk">
+    <a href="index.html">Home</a>
+    <a href="shelf.html">App</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="terms.html">Terms</a>
+  </div>
+  <div class="fc">© 2025 Shelf.</div>
+</footer>
+
+<script src="privacy.js"></script>
+</body>
+</html>
